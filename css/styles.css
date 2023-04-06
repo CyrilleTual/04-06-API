@@ -1,0 +1,103 @@
+/* ====================================================== */
+/* ======== Chargement des polices non standards ======== */
+/* ====================================================== */
+
+
+/* ====================================================== */
+/* =============== Styles globaux de base =============== */
+/* ====================================================== */
+
+* {
+    box-sizing : border-box;
+}
+
+/* Police, taille du texte par défaut */
+html {
+    /* Ramener la taille par défaut à 10px */
+    font-size : 62.5%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size : 1.6rem;
+    line-height : 1.4;
+}
+
+/* Styles des liens par défaut */
+a {
+    text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+    text-decoration: underline;
+}
+
+/* Styles des titres par défaut */
+h1,h2,h3,h4,h5,h6 {
+    font-family : Verdana, Geneva, Tahoma, sans-serif;
+}
+
+p {
+    margin-bottom: 0;
+    margin-top: 5px;    
+}
+
+nav > ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+}
+
+nav li a {
+    display: block;
+    color :aliceblue;
+    background-color: rgb(197, 21, 21);
+    margin: 10px;
+    padding: 10px; 
+    text-align: center;
+    border-radius: 20px;
+}
+
+
+
+h1{
+    text-align: center;
+   text-shadow: #FC0 1px 0 10px;
+}
+
+img {
+    max-width : 100%;
+    height : auto;
+}
+
+#wrapper{
+    margin: auto;
+    
+    max-width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    
+}
+
+article {
+    background-color: #c6b7b7;
+    max-width: 300px;
+    margin: 10px;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+p {
+    display: flex;
+    flex-direction: column;
+}
+span{
+    margin-bottom: 5px;
+}
+
+
