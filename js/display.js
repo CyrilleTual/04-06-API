@@ -1,4 +1,4 @@
-export function toDisplay (films) {
+export function toDisplay (films, search = false) {
 
     const anchor = document.getElementById('wrapper');
 
@@ -12,11 +12,11 @@ export function toDisplay (films) {
     // traitement des ret         
     for (const film of films) {
 
+        
 
         // creation des éléments :    
         let art = document.createElement('article');
         let movieTitle      = document.createElement ('h2');
-        
         let movieTxt        = document.createElement('div');
         let movieCount      = document.createElement('p');
         let movieAvg        = document.createElement('p');
@@ -29,7 +29,7 @@ export function toDisplay (films) {
         if(film.poster_path){
             imgUrl = `${API_URL_IMG}${film.poster_path}`;
             moviePic = document.createElement('img');
-        };   
+        };
 
         // injection de contenu
         movieTitle.innerText = film.original_title;
@@ -39,8 +39,46 @@ export function toDisplay (films) {
         movieRelease.innerText = `Release : ${(new Date(film.release_date).toLocaleDateString())}`;
         movieOverview.innerText = film.overview;
 
-        // injection dans le DOM
+         // injection dans le DOM
         movieTxt.append (movieCount, movieAvg, movieRelease, movieOverview)
+
+        // dans le cas d'une recherche on recupérer le tableau d'info de producteurs:
+
+        if (search){
+            //console.log(film);
+            //console.log(film.infoProducers)
+            let ArrayProducts = film.infoProducers;
+            // si il est non vide on va le parcourir 
+            if (ArrayProducts !== []){
+
+                let ul = document.createElement("ul");
+
+                for (const producer of ArrayProducts) {
+                    //console.log(producer)
+                    let li = document.createElement("ul");
+                    let producerName = producer.name;
+                    let producerWebSite = producer.urlOfSite;
+                    console.log(producerName,producerWebSite) 
+                    li.innerText = `Producteur : ${producerName}, site : ${producerWebSite}`;
+                    ul.append(li);
+                }
+                movieTxt.append(ul);
+
+
+            }
+            
+            
+        }
+        
+        
+
+
+
+
+
+
+
+       
         art.append(movieTitle,moviePic,movieTxt);
         anchor.append(art);
     }
