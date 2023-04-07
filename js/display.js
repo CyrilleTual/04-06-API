@@ -29,12 +29,12 @@ export function toDisplay (films, search = false) {
         };
 
         // injection de contenu
-        movieTitle.innerText = film.original_title;
+        movieTitle.textContent = film.original_title;
         if(film.poster_path)moviePic.src=imgUrl;
-        movieCount.innerText = `Vote Count : ${film.vote_count}`;
-        movieAvg.innerText = `Vote average : ${film.vote_average}`;
-        movieRelease.innerText = `Release : ${(new Date(film.release_date).toLocaleDateString())}`;
-        movieOverview.innerText = film.overview;
+        movieCount.textContent = `Vote Count : ${film.vote_count}`;
+        movieAvg.textContent = `Vote average : ${film.vote_average}`;
+        movieRelease.textContent = `Release : ${(new Date(film.release_date).toLocaleDateString())}`;
+        movieOverview.textContent = film.overview;
 
          // injection dans le DOM
         movieTxt.append (movieCount, movieAvg, movieRelease, movieOverview)
@@ -57,8 +57,19 @@ export function toDisplay (films, search = false) {
                     let producerWebSite = producer.urlOfSite;
                     console.log(producerName,producerWebSite) 
                     console.log (film.id)
-                    li.innerText = `Producteur : ${producerName}, site : ${producerWebSite}`;
+                    li.textContent = `Producteur : ${producerName}`;
                     ul.append(li);
+                    if (producerWebSite !== ""){
+                        let li = document.createElement("ul");
+                        let a = document.createElement("a");
+                        a.setAttribute('href', producerWebSite )
+                        a.setAttribute('title', 'website')
+                        a.textContent = `${producerWebSite}`;
+                        li.append(a);
+
+                       // li.textContent = `Site : ${producerWebSite}`;
+                         ul.append(li);
+                    }
                 }
                 movieTxt.append(ul);
             }   

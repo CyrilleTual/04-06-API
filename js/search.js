@@ -28,7 +28,7 @@ let arrayOfProducers =[];
 
 async function addDetails (arrayOfFilms){
     
-    let newArrayOfProducers = [];
+    let newArrayOfProducers;
     let newArrayOfFilms = [];
 
     for await (const film of arrayOfFilms) {

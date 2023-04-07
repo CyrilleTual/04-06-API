@@ -15,3 +15,6 @@ fetch(urlReq1)
 .then (datas =>  {
     toDisplay (datas.results)
 })
+
+
+document.addEventListener('DOMContentLoaded')
