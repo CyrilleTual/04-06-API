@@ -25,15 +25,20 @@ function filmsToFind(toFind) {
 let arrayOfProducers =[];
 
 
+
 async function addDetails (arrayOfFilms){
+    
     let newArrayOfProducers = [];
     let newArrayOfFilms = [];
 
-    for (const film of arrayOfFilms) {
+    for await (const film of arrayOfFilms) {
+
+        newArrayOfProducers = []
         // recupération des info boite de prod et lien 
         await findProd(film.id)
-        // pour chaque producteur on va chercherson website
-        for (const producer of arrayOfProducers) {
+        console.log (arrayOfProducers)
+        // pour chaque producteur on va chercher son website
+        for await (const producer of arrayOfProducers) {
             let producerId = producer.id;
             await findWebSite(producerId);
             // dans chaque producer on ajoute une clef avec l'url du web site
@@ -55,13 +60,14 @@ async function addDetails (arrayOfFilms){
 
 // recupère un tableau de producteurs à partir d'un id de film
 async function findProd(idFilm){
-    
+    arrayOfProducers =[]
     let urlReq= `${BASE_URL}/${MOVIES}/${idFilm}?api_key=${API_KEY}`
     await fetch(urlReq)
         .then (res => res.json())
         .then (film => {
             // recup des producteurs ( array)
             arrayOfProducers=film.production_companies; 
+            //film.production_companies; 
         })
 }
 
