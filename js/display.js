@@ -29,12 +29,12 @@ export function toDisplay (films, search = false) {
         };
 
         // injection de contenu
-        movieTitle.textContent = film.original_title;
+        movieTitle.textContent      = film.original_title;
         if(film.poster_path)moviePic.src=imgUrl;
-        movieCount.textContent = `Vote Count : ${film.vote_count}`;
-        movieAvg.textContent = `Vote average : ${film.vote_average}`;
-        movieRelease.textContent = `Release : ${(new Date(film.release_date).toLocaleDateString())}`;
-        movieOverview.textContent = film.overview;
+        movieCount.textContent      = `Vote Count : ${film.vote_count}`;
+        movieAvg.textContent        = `Vote average : ${film.vote_average}`;
+        movieRelease.textContent    = `Release : ${(new Date(film.release_date).toLocaleDateString())}`;
+        movieOverview.textContent   = film.overview;
 
          // injection dans le DOM
         movieTxt.append (movieCount, movieAvg, movieRelease, movieOverview)
@@ -42,18 +42,16 @@ export function toDisplay (films, search = false) {
         // dans le cas d'une recherche on recupérer le tableau d'info de producteurs:
 
         if (search){
-
             let ArrayProducts = film.infoProducers;
             // si il est non vide on va le parcourir 
-            if (ArrayProducts !== []){
+            let ul = document.createElement("ul");
 
-                let ul = document.createElement("ul");
-
+            if (ArrayProducts.length > 0 ){
                 for (const producer of ArrayProducts) {
                     let li = document.createElement("li");
                     let producerName = producer.name;
                     let producerWebSite = producer.urlOfSite;
-                    li.textContent = `Producteur : ${producerName}`;
+                    li.textContent = `Producer : ${producerName}`;
                     ul.append(li);
                     if (producerWebSite !== ""){
                         let li = document.createElement("li");
@@ -65,8 +63,13 @@ export function toDisplay (films, search = false) {
                         ul.append(li);
                     }
                 }
-                movieTxt.append(ul);
-            }   
+               
+            }else{
+                let li = document.createElement("li");
+                li.textContent = `Sorry, no producer registred`;
+                ul.append(li);   
+            }
+            movieTxt.append(ul);   
         }     
         art.append(movieTitle,moviePic,movieTxt);
         anchor.append(art);

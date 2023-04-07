@@ -1,23 +1,11 @@
 import { toDisplay } from "./display.js";
+import { filmsToFind, findProd, findWebSite } from "./fetchFunctions.js";
 
 const searchInput = document.getElementById("search");
-const API_KEY   = "9c6de8c116e01800dc9c56fe546028f4";
-const BASE_URL  = "https://api.themoviedb.org/3"
-const SEARCH  = "search";
-const MOVIES    = "movie";
 
-/**
- * retourne un tableau en fonction de la saisie dans le champ de recherche
- */
-function filmsToFind(toFind) {
-    let urlReq1= `${BASE_URL}/${SEARCH}/${MOVIES}?api_key=${API_KEY}&query=${toFind}`
-    fetch(urlReq1)
-        .then (res => res.json())
-        .then (datas => {
-            // on passe le tableau de film à une seconde fonction 
-            // pour recherche de compléments d'information
-            addDetails(datas.results)
-        })
+async function search (toFind){
+    let result = await filmsToFind(toFind)
+    addDetails(result)
 }
 
 /**
@@ -50,27 +38,8 @@ async function addDetails (arrayOfFilms){
 
     // appel de l'affichage avec le nouveau tableau de films
     toDisplay (newArrayOfFilms, true)
-
 }
 
-
-// recupère un tableau de producteurs à partir d'un id de film
-async function findProd(idFilm){
-    let urlReq= `${BASE_URL}/${MOVIES}/${idFilm}?api_key=${API_KEY}`
-    let resp = await fetch(urlReq)
-        .then (res => res.json())
-        .then (film => {return (film.production_companies)})
-    return (resp)   
-}
-
-// recupère le site d'un producer depuis sont id
-async function findWebSite(producerId){
-    let urlReq=`${BASE_URL}/company/${producerId}?api_key=${API_KEY}`
-    let resp = await fetch(urlReq)
-        .then (res => res.json())
-        .then (producer => { return(producer.homepage)})
-    return (resp)    
-}
 
 /**
  * Ecouteur sur le champ de recherche 
@@ -78,6 +47,7 @@ async function findWebSite(producerId){
 window.addEventListener('DOMContentLoaded', () => {
         // ecoute sur le texte au fur et à mesure de la frappe
         searchInput.addEventListener('keyup', function(e){
-        filmsToFind(e.target.value)
+        //filmsToFind(e.target.value)
+        search(e.target.value)
     })
 })
