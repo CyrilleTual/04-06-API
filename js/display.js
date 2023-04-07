@@ -40,10 +40,9 @@ export function toDisplay (films, search = false) {
         movieTxt.append (movieCount, movieAvg, movieRelease, movieOverview)
 
         // dans le cas d'une recherche on recupérer le tableau d'info de producteurs:
-        //console.log(film);
+
         if (search){
-            //console.log(film);
-            //console.log(film.infoProducers)
+
             let ArrayProducts = film.infoProducers;
             // si il est non vide on va le parcourir 
             if (ArrayProducts !== []){
@@ -51,12 +50,9 @@ export function toDisplay (films, search = false) {
                 let ul = document.createElement("ul");
 
                 for (const producer of ArrayProducts) {
-                    //console.log(producer)
                     let li = document.createElement("ul");
                     let producerName = producer.name;
                     let producerWebSite = producer.urlOfSite;
-                    console.log(producerName,producerWebSite) 
-                    console.log (film.id)
                     li.textContent = `Producteur : ${producerName}`;
                     ul.append(li);
                     if (producerWebSite !== ""){
@@ -66,9 +62,7 @@ export function toDisplay (films, search = false) {
                         a.setAttribute('title', 'website')
                         a.textContent = `${producerWebSite}`;
                         li.append(a);
-
-                       // li.textContent = `Site : ${producerWebSite}`;
-                         ul.append(li);
+                        ul.append(li);
                     }
                 }
                 movieTxt.append(ul);

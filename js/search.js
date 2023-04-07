@@ -21,7 +21,6 @@ function filmsToFind(toFind) {
 }
 
 // rechercher de la boite de prod et d'un lien vers celle-ci
-// /movie/{movie_id}
 let arrayOfProducers =[];
 
 
@@ -36,7 +35,6 @@ async function addDetails (arrayOfFilms){
         newArrayOfProducers = []
         // recupération des info boite de prod et lien 
         await findProd(film.id)
-        console.log (arrayOfProducers)
         // pour chaque producteur on va chercher son website
         for await (const producer of arrayOfProducers) {
             let producerId = producer.id;
@@ -49,7 +47,6 @@ async function addDetails (arrayOfFilms){
         film.infoProducers = newArrayOfProducers;
         // on reconstitue un nouveau tableau de films 
         newArrayOfFilms.push(film);
-        //console.log(newArrayOfFilms);   
     }
 
     // appel de l'affichage
