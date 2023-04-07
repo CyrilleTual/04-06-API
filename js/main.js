@@ -10,11 +10,15 @@ const PERIOD    = "week"
  */
 let urlReq1= `${BASE_URL}/${TRENDING}/${MOVIES}/${PERIOD}?api_key=${API_KEY}`
 
-fetch(urlReq1)
-.then (res => res.json())
-.then (datas =>  {
-    toDisplay (datas.results)
+function goFetch(){
+    fetch(urlReq1)
+        .then (res => res.json())
+        .then (datas =>  {
+        toDisplay (datas.results)
+    })
+}
+
+
+document.addEventListener('DOMContentLoaded',()=>{
+    goFetch()
 })
-
-
-document.addEventListener('DOMContentLoaded')

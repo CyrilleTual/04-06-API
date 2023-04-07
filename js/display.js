@@ -50,13 +50,13 @@ export function toDisplay (films, search = false) {
                 let ul = document.createElement("ul");
 
                 for (const producer of ArrayProducts) {
-                    let li = document.createElement("ul");
+                    let li = document.createElement("li");
                     let producerName = producer.name;
                     let producerWebSite = producer.urlOfSite;
                     li.textContent = `Producteur : ${producerName}`;
                     ul.append(li);
                     if (producerWebSite !== ""){
-                        let li = document.createElement("ul");
+                        let li = document.createElement("li");
                         let a = document.createElement("a");
                         a.setAttribute('href', producerWebSite )
                         a.setAttribute('title', 'website')

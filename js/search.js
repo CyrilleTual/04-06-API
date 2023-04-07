@@ -1,13 +1,10 @@
 import { toDisplay } from "./display.js";
 
-
 const searchInput = document.getElementById("search");
 const API_KEY   = "9c6de8c116e01800dc9c56fe546028f4";
 const BASE_URL  = "https://api.themoviedb.org/3"
 const SEARCH  = "search";
 const MOVIES    = "movie";
-let arrayOfProducers =[];
-
 
 /**
  * retourne un tableau en fonction de la saisie dans le champ de recherche
@@ -23,7 +20,6 @@ function filmsToFind(toFind) {
         })
 }
 
-
 /**
  * rechercher de la boite de prod et d'un lien vers celle-ci
  */
@@ -33,16 +29,17 @@ async function addDetails (arrayOfFilms){
 
     for await (const film of arrayOfFilms) {  // pour chaque film de la selection
 
-        newArrayOfProducers = []
+        newArrayOfProducers = [] // nouveau tableau + complet
         // recupération d'un tableau des producteurs 
-        await findProd(film.id)
+        let arrayOfProducers = await findProd(film.id);
 
         // pour chaque producteur on va chercher son website
         for await (const producer of arrayOfProducers) {
+
             let producerId = producer.id;
-            await findWebSite(producerId);
+            producer.urlOfSite = await findWebSite(producerId);
+
             // dans chaque producer on ajoute une clef avec l'url du web site
-            producer.urlOfSite = producerWebSite;
             newArrayOfProducers.push(producer);  
         }
         // pour chaque film on ajoute une clef avec les producers en détail
@@ -59,32 +56,21 @@ async function addDetails (arrayOfFilms){
 
 // recupère un tableau de producteurs à partir d'un id de film
 async function findProd(idFilm){
-    arrayOfProducers =[]
     let urlReq= `${BASE_URL}/${MOVIES}/${idFilm}?api_key=${API_KEY}`
-    await fetch(urlReq)
+    let resp = await fetch(urlReq)
         .then (res => res.json())
-        .then (film => {
-            // recup des producteurs ( array)
-            arrayOfProducers=film.production_companies; 
-            // film.production_companies; 
-        })
+        .then (film => {return (film.production_companies)})
+    return (resp)   
 }
-
 
 // recupère le site d'un producer depuis sont id
-let producerWebSite ="";
 async function findWebSite(producerId){
     let urlReq=`${BASE_URL}/company/${producerId}?api_key=${API_KEY}`
-    await fetch(urlReq)
+    let resp = await fetch(urlReq)
         .then (res => res.json())
-        .then (producer => {
-            // recup du site Web
-            producerWebSite=producer.homepage;  
-        })
+        .then (producer => { return(producer.homepage)})
+    return (resp)    
 }
-
-
-
 
 /**
  * Ecouteur sur le champ de recherche 
